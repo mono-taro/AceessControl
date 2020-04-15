@@ -1,5 +1,7 @@
 # ラズパイとpasoriを使った簡単な入退室管理システム
 
+大まかな概要はこちらで見てください。
+https://qiita.com/mono_taro/items/8bac24c5768da0828f2b
 
 データーベースの設定ファイルはconnect.phpです。データーベース名やパスワードはconnect.phpで設定します。
 その他apacheユーザーへ権限を付与しパスワードを求める設定の場合、IDm読み取りのためにpythonコードを呼び出しているtouch.phpとidm_register.phpでsudo権限のパスワードを設定しておく必要があります。
