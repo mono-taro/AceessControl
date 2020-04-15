@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   
+    <title>カード読み取り</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">IDm読み取り</a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="ナビゲーションの切替">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="member.php">メンバーの在否一覧</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="admin/admin_top.php">管理ページ</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <h4 class="display-5">カードをリーダーの上に置き、数秒お待ちください。</h4>
+    <h4 class="lead"><span id="time"></span></h4>
+    <hr class="my-4">
+    <div id="result"></div>
+  </div>
+  <br/>
+  <br/>
+  <script>
+    //現在の時刻を表示
+    time();
+    function time(){
+        var now = new Date();
+        document.getElementById("time").innerHTML = now.toLocaleString();
+    }
+    setInterval('time()',1000);
+  </script> 
+  <br/>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+
+  //非同期処理
+  $(function(){
+      
+    //ページを読み込んだら自動で処理開始
+    $(document).ready( function(){
+
+      $.ajax({
+        url: " touch.php",
+        dataType : "text",
+        async: true,
+      }).done(function(data){
+        console.log(data + "を取得しました。");
+        
+        //<div id="result">にdataを代入
+        $("#result").html(data);
+        //5秒後にページ更新
+         setTimeout(function () {
+            location.reload();
+          }, "5000");
+      })
+    });
+
+  });
+
+  </script>
+</body>
+</html>
